@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "../axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState([]);
 
   useEffect(() => {
@@ -10,9 +12,16 @@ const Chat = () => {
   }, []);
 
   const sendMessage = async () => {
-    const res = await axios.post("/chat/savechat", { question: message });
-    setChat([...chat, { question: message, response: res.data.response }]);
-    setMessage("");
+    setLoading(true);
+    try{
+      const res = await axios.post("/chat/savechat", { question: message });
+      setChat([...chat, { question: message, response: res.data.response }]);
+      setMessage("");
+    }catch(error){
+      console.log(error)
+    }finally{
+      setLoading(false);
+    }
   };
 
   return (
@@ -24,6 +33,7 @@ const Chat = () => {
             <p className="text-gray-600">{c.response}</p>
           </div>
         ))}
+        {loading && <div className="flex justify-center p-2"><ClipLoader size={25} color={"#000"} /></div>}
       </div>
       <input type="text" placeholder="Ask something..." className="border p-2 w-full mt-2"
         value={message} onChange={(e) => setMessage(e.target.value)} />
