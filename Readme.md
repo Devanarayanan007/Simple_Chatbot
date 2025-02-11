@@ -66,6 +66,11 @@ cd chatbot-node
 
 npm install
 
+##### Update .env file in the backend root with::
+
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+
 ##### Start the backend server:
 
 npm run dev
