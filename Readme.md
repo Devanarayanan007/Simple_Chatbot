@@ -42,6 +42,8 @@ Displays chat history when the user logs in
 
 Material UI and Tailwind CSS styling
 
+Loading spinner while authenticating and fetching chatbot responses
+
 Proper routing with React Router
 
 Not Found and Unauthorized pages
